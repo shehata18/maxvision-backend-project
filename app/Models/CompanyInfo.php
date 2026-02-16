@@ -49,14 +49,11 @@ class CompanyInfo extends Model
     /**
      * The attributes that should be cast.
      *
-     * @return array<string, string>
+     * @var array<string, string>
      */
-    protected function casts(): array
-    {
-        return [
-            'value' => 'array',
-        ];
-    }
+    protected $casts = [
+        'value' => 'array',
+    ];
 
     /**
      * Get milestones data.

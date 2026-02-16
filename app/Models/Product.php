@@ -82,18 +82,15 @@ class Product extends Model
     /**
      * The attributes that should be cast.
      *
-     * @return array<string, string>
+     * @var array<string, string>
      */
-    protected function casts(): array
-    {
-        return [
-            'gallery' => 'array',
-            'is_active' => 'boolean',
-            'pixel_pitch' => 'decimal:2',
-            'brightness_min' => 'integer',
-            'brightness_max' => 'integer',
-        ];
-    }
+    protected $casts = [
+        'gallery' => 'array',
+        'is_active' => 'boolean',
+        'pixel_pitch' => 'decimal:2',
+        'brightness_min' => 'integer',
+        'brightness_max' => 'integer',
+    ];
 
     /**
      * Boot the model.
