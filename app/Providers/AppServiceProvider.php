@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Models\ContactSubmission;
+use App\Models\Product;
 use App\Observers\ContactSubmissionObserver;
+use App\Observers\ProductObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -22,5 +24,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         ContactSubmission::observe(ContactSubmissionObserver::class);
+        Product::observe(ProductObserver::class);
     }
 }
