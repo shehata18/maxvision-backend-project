@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\CaseStudyController;
+use App\Http\Controllers\Api\CompanyController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\SolutionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,7 +22,19 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Product API endpoints (public)
+// ─── Products ────────────────────────────────────────────────────
 Route::get('/products/categories', [ProductController::class, 'categories']);
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/products/{slug}', [ProductController::class, 'show']);
+
+// ─── Solutions ───────────────────────────────────────────────────
+Route::get('/solutions', [SolutionController::class, 'index']);
+Route::get('/solutions/{slug}', [SolutionController::class, 'show']);
+
+// ─── Case Studies ────────────────────────────────────────────────
+Route::get('/case-studies', [CaseStudyController::class, 'index']);
+Route::get('/case-studies/{slug}', [CaseStudyController::class, 'show']);
+
+// ─── Company ─────────────────────────────────────────────────────
+Route::get('/company/about', [CompanyController::class, 'about']);
+Route::get('/company/settings', [CompanyController::class, 'settings']);
