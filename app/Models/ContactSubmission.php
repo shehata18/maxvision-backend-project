@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ContactSubmissionStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -22,7 +23,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $size_requirements
  * @property string $budget_range
  * @property string|null $message
- * @property string $status
+ * @property ContactSubmissionStatus $status
  * @property \Illuminate\Support\Carbon $created_at
  * @property \Illuminate\Support\Carbon $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
@@ -63,16 +64,13 @@ class ContactSubmission extends Model
      * @var array<string, string>
      */
     protected $casts = [
+        'status' => ContactSubmissionStatus::class,
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
 
     /**
      * Scope a query to filter by status.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param string $status
-     * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeByStatus($query, string $status)
     {
@@ -80,11 +78,31 @@ class ContactSubmission extends Model
     }
 
     /**
+     * Scope a query to filter new submissions.
+     */
+    public function scopeNew($query)
+    {
+        return $query->where('status', 'new');
+    }
+
+    /**
+     * Scope a query to filter contacted submissions.
+     */
+    public function scopeContacted($query)
+    {
+        return $query->where('status', 'contacted');
+    }
+
+    /**
+     * Scope a query to filter converted submissions.
+     */
+    public function scopeConverted($query)
+    {
+        return $query->where('status', 'converted');
+    }
+
+    /**
      * Scope a query to filter by project type.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param string $type
-     * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeByProjectType($query, string $type)
     {
@@ -93,10 +111,6 @@ class ContactSubmission extends Model
 
     /**
      * Scope a query to filter by timeline.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param string $timeline
-     * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeByTimeline($query, string $timeline)
     {
@@ -104,10 +118,15 @@ class ContactSubmission extends Model
     }
 
     /**
+     * Scope a query to filter by date range.
+     */
+    public function scopeDateRange($query, $from, $to)
+    {
+        return $query->whereBetween('created_at', [$from, $to]);
+    }
+
+    /**
      * Scope a query to order by most recent first.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeRecent($query)
     {
@@ -116,11 +135,71 @@ class ContactSubmission extends Model
 
     /**
      * Get the full name of the contact.
-     *
-     * @return string
      */
     public function getFullNameAttribute(): string
     {
         return "{$this->first_name} {$this->last_name}";
+    }
+
+    /**
+     * Mark this submission as contacted.
+     */
+    public function markAsContacted(): self
+    {
+        $this->update(['status' => ContactSubmissionStatus::CONTACTED]);
+        return $this;
+    }
+
+    /**
+     * Mark this submission as converted.
+     */
+    public function markAsConverted(): self
+    {
+        $this->update(['status' => ContactSubmissionStatus::CONVERTED]);
+        return $this;
+    }
+
+    /**
+     * Get project type options matching the frontend form.
+     */
+    public static function getProjectTypeOptions(): array
+    {
+        return [
+            'Indoor LED Display' => 'Indoor LED Display',
+            'Outdoor LED Display' => 'Outdoor LED Display',
+            'Transparent LED' => 'Transparent LED',
+            'LED Video Wall' => 'LED Video Wall',
+            'Rental LED Screen' => 'Rental LED Screen',
+            'Custom Solution' => 'Custom Solution',
+            'Other' => 'Other',
+        ];
+    }
+
+    /**
+     * Get timeline options matching the frontend form.
+     */
+    public static function getTimelineOptions(): array
+    {
+        return [
+            'Immediate' => 'Immediate',
+            '1-3 Months' => '1-3 Months',
+            '3-6 Months' => '3-6 Months',
+            '6-12 Months' => '6-12 Months',
+            '12+ Months' => '12+ Months',
+        ];
+    }
+
+    /**
+     * Get budget range options matching the frontend form.
+     */
+    public static function getBudgetRangeOptions(): array
+    {
+        return [
+            'Under $10,000' => 'Under $10,000',
+            '$10,000 - $25,000' => '$10,000 - $25,000',
+            '$25,000 - $50,000' => '$25,000 - $50,000',
+            '$50,000 - $100,000' => '$50,000 - $100,000',
+            'Over $100,000' => 'Over $100,000',
+        ];
     }
 }

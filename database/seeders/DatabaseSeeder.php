@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             CaseStudySeeder::class,     // Depends on products
             CompanyInfoSeeder::class,
             SettingsSeeder::class,
+            ContactSubmissionSeeder::class,
         ]);
     }
 }
