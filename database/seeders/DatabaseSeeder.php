@@ -14,7 +14,9 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             AdminUserSeeder::class,
-            ProductSeeder::class,
+            ProductSeeder::class,       // Must run first (products needed for relationships)
+            SolutionSeeder::class,      // Depends on products
+            CaseStudySeeder::class,     // Depends on products
         ]);
     }
 }
