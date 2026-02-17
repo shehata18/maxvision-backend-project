@@ -6,6 +6,7 @@ use App\Enums\ContactSubmissionStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 
 /**
  * ContactSubmission Model
@@ -37,7 +38,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class ContactSubmission extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -131,6 +132,14 @@ class ContactSubmission extends Model
     public function scopeRecent($query)
     {
         return $query->orderBy('created_at', 'desc');
+    }
+
+    /**
+     * Route notifications for the mail channel.
+     */
+    public function routeNotificationForMail(): string
+    {
+        return $this->email;
     }
 
     /**

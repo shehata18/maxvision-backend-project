@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\CaseStudyController;
 use App\Http\Controllers\Api\CompanyController;
+use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\SolutionController;
 use Illuminate\Http\Request;
@@ -38,3 +39,7 @@ Route::get('/case-studies/{slug}', [CaseStudyController::class, 'show']);
 // ─── Company ─────────────────────────────────────────────────────
 Route::get('/company/about', [CompanyController::class, 'about']);
 Route::get('/company/settings', [CompanyController::class, 'settings']);
+
+// ─── Contact / Quote Request ─────────────────────────────────────
+Route::post('/contact', [ContactController::class, 'store'])->middleware('throttle:contact');
+
