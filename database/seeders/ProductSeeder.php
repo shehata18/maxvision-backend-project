@@ -73,6 +73,7 @@ class ProductSeeder extends Seeder
                 'tagline' => 'High-brightness outdoor LED for any weather condition',
                 'description' => 'The PTF-P3 is engineered for demanding outdoor environments, delivering stunning visuals with 7000 nits of brightness. Featuring IP65-rated weatherproofing, dual power backup, and front-serviceable design, this display ensures uninterrupted performance in rain, snow, or extreme heat. Perfect for billboards, building facades, and stadium installations.',
                 'slug' => 'ptf-p3-outdoor-display',
+                'image' => 'products/outdoor/ptf-p3-outdoor-display.webp',
                 'is_active' => true,
                 'features' => [
                     ['icon' => 'Sun', 'title' => '7000 nits Brightness', 'description' => 'Crystal clear visibility even in direct sunlight, ensuring your content stands out 24/7.'],
@@ -112,6 +113,7 @@ class ProductSeeder extends Seeder
                 'tagline' => 'Cost-effective outdoor LED for large-scale installations',
                 'description' => 'The PTF-P5 delivers exceptional value for large-scale outdoor installations. With a 5mm pixel pitch optimized for longer viewing distances, this display provides brilliant visuals for highways, building wraps, and large venue applications while maintaining lower power consumption.',
                 'slug' => 'ptf-p5-outdoor-display',
+                'image' => 'products/outdoor/ptf-p5-outdoor-display.webp',
                 'is_active' => true,
                 'features' => [
                     ['icon' => 'Sun', 'title' => '8000 nits Brightness', 'description' => 'Ultra-high brightness for unmatched visibility even in the harshest sunlight.'],
@@ -151,6 +153,7 @@ class ProductSeeder extends Seeder
                 'tagline' => 'Ultra-fine pixel pitch for immersive indoor experiences',
                 'description' => 'The TMAX-P1.5 sets the standard for premium indoor LED displays. With an ultra-fine 1.5mm pixel pitch, this display delivers razor-sharp visuals perfect for control rooms, boardrooms, and high-end retail environments where close viewing distances require exceptional clarity.',
                 'slug' => 'tmax-p1-5-indoor-display',
+                'image' => 'products/indoor/tmax-p1-5-indoor-display.webp',
                 'is_active' => true,
                 'features' => [
                     ['icon' => 'Eye', 'title' => '1.5mm Fine Pitch', 'description' => 'Ultra-fine pixel pitch delivers stunning detail at close viewing distances.'],
@@ -192,6 +195,7 @@ class ProductSeeder extends Seeder
                 'tagline' => 'Versatile indoor solution for any commercial space',
                 'description' => 'The ST-P2.5 is a versatile indoor LED display designed for commercial applications. With a balanced 2.5mm pixel pitch, it delivers crisp visuals for conference rooms, shopping malls, hotel lobbies, and exhibition spaces at an attractive price point.',
                 'slug' => 'st-p2-5-indoor-display',
+                'image' => 'products/indoor/st-p2-5-indoor-display.webp',
                 'is_active' => true,
                 'features' => [
                     ['icon' => 'Layout', 'title' => 'Flexible Sizing', 'description' => 'Modular design allows custom screen sizes to fit any installation space.'],
@@ -231,6 +235,7 @@ class ProductSeeder extends Seeder
                 'tagline' => 'See-through LED technology for stunning window displays',
                 'description' => 'LED Glass P6 combines cutting-edge transparent technology with stunning visual performance. With up to 85% transparency, this display transforms ordinary glass facades into dynamic digital canvases while maintaining natural light and visibility. Perfect for retail storefronts, museum installations, and architectural features.',
                 'slug' => 'led-glass-p6-transparent-display',
+                'image' => 'products/transparent/led-glass-p6-transparent-display.webp',
                 'is_active' => true,
                 'features' => [
                     ['icon' => 'Eye', 'title' => '85% Transparency', 'description' => 'Ultra-high transparency maintains natural light and visibility through the display.'],
@@ -270,6 +275,7 @@ class ProductSeeder extends Seeder
                 'tagline' => 'Architectural mesh LED for large-scale transparent installations',
                 'description' => 'The Micro Mesh P10 is designed for large-scale architectural applications where transparency and wind load are critical factors. With its lightweight mesh structure and IP65 rating, this display is ideal for building media facades, architectural landmarks, and outdoor transparent installations.',
                 'slug' => 'micro-mesh-p10-transparent-display',
+                'image' => 'products/transparent/micro-mesh-p10-transparent-display.webp',
                 'is_active' => true,
                 'features' => [
                     ['icon' => 'Wind', 'title' => 'Wind Resistant', 'description' => 'Open mesh design allows 70% wind pass-through, reducing structural load.'],
@@ -309,6 +315,7 @@ class ProductSeeder extends Seeder
                 'tagline' => 'Ultra-slim standalone digital poster for retail and hospitality',
                 'description' => 'The Digital Poster P2 is a sleek, standalone LED display designed for high-impact messaging in retail and hospitality environments. With a stunning 2mm pixel pitch, built-in media player, and ultra-slim 40mm profile, this display delivers eye-catching content with minimal footprint.',
                 'slug' => 'digital-poster-p2',
+                'image' => 'products/posters/digital-poster-p2.webp',
                 'is_active' => true,
                 'features' => [
                     ['icon' => 'Smartphone', 'title' => '40mm Ultra-Slim', 'description' => 'Portrait-format display with an incredibly thin profile that fits any space.'],
@@ -348,6 +355,7 @@ class ProductSeeder extends Seeder
                 'tagline' => 'Budget-friendly digital signage poster with premium quality',
                 'description' => 'The Digital Poster P2.5 combines affordability with impressive visual quality. Featuring a 2.5mm pixel pitch and the same sleek form factor as its premium sibling, this poster display is perfect for chain stores, museums, and wayfinding applications where value meets performance.',
                 'slug' => 'digital-poster-p2-5',
+                'image' => 'products/posters/digital-poster-p2-5.webp',
                 'is_active' => true,
                 'features' => [
                     ['icon' => 'DollarSign', 'title' => 'Best Value', 'description' => 'Premium quality at an accessible price point for multi-unit deployments.'],

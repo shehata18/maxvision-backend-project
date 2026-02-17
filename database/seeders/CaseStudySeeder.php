@@ -84,6 +84,7 @@ class CaseStudySeeder extends Seeder
                 'challenge' => "The client needed a display that wouldn't obstruct natural light while delivering vivid visuals for premium brand advertising in a high-traffic mall entrance.",
                 'solution' => "Deployed Maxvision's MicroMesh transparent LED panels with 75% light transmission, custom-curved to follow the architectural glass façade and integrated with a CMS for real-time ad scheduling.",
                 'is_featured' => true,
+                'image' => 'case-studies/luxury-mall-toronto.webp',
                 'is_active' => true,
                 'metrics' => [
                     ['label' => 'Foot Traffic Increase', 'value' => '+34%', 'icon' => 'TrendingUp'],
@@ -112,6 +113,7 @@ class CaseStudySeeder extends Seeder
                 'challenge' => "Extreme weather resistance was critical — displays needed to perform flawlessly in heavy rain, coastal fog, and direct sunlight while maintaining 24/7 uptime for premium advertisers.",
                 'solution' => 'Installed Maxvision PTF-Series outdoor cabinets with IP67 rating, anti-corrosion treatment, and dual-redundant power/signal systems. Each unit delivers 9,000 nits for daylight readability.',
                 'is_featured' => false,
+                'image' => 'case-studies/highway-billboard-vancouver.webp',
                 'is_active' => true,
                 'metrics' => [
                     ['label' => 'Daily Impressions', 'value' => '2.4M', 'icon' => 'Eye'],
@@ -140,6 +142,7 @@ class CaseStudySeeder extends Seeder
                 'challenge' => 'The operations center required seamless, bezel-free visuals across a 22m wide curved wall with 24/7 operation, pixel-perfect clarity for data dashboards, and strict security compliance.',
                 'solution' => 'Deployed Maxvision TMAX fine-pitch LED panels (P1.2) in a custom steel subframe, with hot-swappable modules for zero-downtime maintenance and a redundant controller architecture.',
                 'is_featured' => false,
+                'image' => 'case-studies/command-center-ottawa.webp',
                 'is_active' => true,
                 'metrics' => [
                     ['label' => 'Response Time Improvement', 'value' => '-28%', 'icon' => 'TrendingUp'],
@@ -168,6 +171,7 @@ class CaseStudySeeder extends Seeder
                 'challenge' => 'Rapid 48-hour install/teardown cycle, outdoor weather exposure, and the need for ultra-high refresh rates to support live broadcast cameras without banding or flicker.',
                 'solution' => 'Used Maxvision ST-Series rental panels with quick-lock assembly, 3,840Hz refresh rate for broadcast-grade performance, and IP54-rated outdoor cabinets for weather resilience.',
                 'is_featured' => false,
+                'image' => 'case-studies/concert-stage-montreal.webp',
                 'is_active' => true,
                 'metrics' => [
                     ['label' => 'Audience Reach', 'value' => '135K', 'icon' => 'Eye'],
@@ -196,6 +200,7 @@ class CaseStudySeeder extends Seeder
                 'challenge' => "The LED installation needed to integrate seamlessly into structural glass without affecting the building's thermal performance, natural lighting, or architectural aesthetics.",
                 'solution' => 'Custom-engineered Maxvision LED Glass panels bonded directly to IGU units, achieving 82% transparency with automated brightness adjustment based on ambient light sensors.',
                 'is_featured' => false,
+                'image' => 'case-studies/glass-tower-calgary.webp',
                 'is_active' => true,
                 'metrics' => [
                     ['label' => 'Property Value Impact', 'value' => '+$18M', 'icon' => 'DollarSign'],

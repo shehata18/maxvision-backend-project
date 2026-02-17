@@ -84,6 +84,7 @@ class SolutionSeeder extends Seeder
                 'tagline' => 'Captivate Shoppers & Drive Foot Traffic',
                 'description' => 'Transform your storefront into a dynamic, attention-grabbing display that draws customers in. Our LED solutions deliver vivid visuals visible in all lighting conditions—from bright daylight to evening ambiance—maximizing your window real estate without blocking natural light.',
                 'category' => 'retail',
+                'image' => 'solutions/retail.webp',
                 'is_active' => true,
                 'benefits' => [
                     'Increase foot traffic by up to 30% with dynamic window displays',
@@ -111,6 +112,7 @@ class SolutionSeeder extends Seeder
                 'tagline' => 'Maximum Visibility in Direct Sunlight',
                 'description' => "Dominate the outdoor advertising landscape with ultra-high-brightness LED displays engineered for 24/7 operation. Our outdoor solutions withstand extreme Canadian weather—from -40°C winters to scorching summers—while delivering crystal-clear content that commands attention from hundreds of meters away.",
                 'category' => 'outdoor',
+                'image' => 'solutions/outdoor.webp',
                 'is_active' => true,
                 'benefits' => [
                     'Ultra-high brightness up to 9,000 nits for full sunlight readability',
@@ -138,6 +140,7 @@ class SolutionSeeder extends Seeder
                 'tagline' => 'Seamless Video Walls for Mission-Critical Environments',
                 'description' => 'Equip your boardroom, lobby, or control center with seamless LED video walls that deliver unmatched clarity and reliability. Our fine-pitch displays provide edge-to-edge uniformity with zero bezels, ensuring every pixel of data, presentation, or surveillance feed is visible with precision.',
                 'category' => 'corporate',
+                'image' => 'solutions/corporate.webp',
                 'is_active' => true,
                 'benefits' => [
                     'Zero-bezel design for truly seamless video wall experiences',
@@ -165,6 +168,7 @@ class SolutionSeeder extends Seeder
                 'tagline' => 'Dynamic Backdrops That Elevate Every Performance',
                 'description' => 'Create breathtaking stage designs and immersive event experiences with our rental-grade LED displays. Engineered for rapid setup and teardown, our modular panels deliver stunning visuals that transform concerts, conferences, trade shows, and broadcasts into unforgettable moments.',
                 'category' => 'events',
+                'image' => 'solutions/events.webp',
                 'is_active' => true,
                 'benefits' => [
                     'Quick-lock cabinet design for setup in under 2 hours',
@@ -192,6 +196,7 @@ class SolutionSeeder extends Seeder
                 'tagline' => 'Transform Buildings Into Dynamic Media Canvases',
                 'description' => "Turn any building façade into a landmark with our architectural LED solutions. Whether integrated into glass curtain walls or mounted on structural surfaces, our displays blend seamlessly with modern architecture while delivering high-impact media content that redefines urban landscapes.",
                 'category' => 'architecture',
+                'image' => 'solutions/architecture.webp',
                 'is_active' => true,
                 'benefits' => [
                     'Up to 85% transparency preserves building aesthetics & daylight',
