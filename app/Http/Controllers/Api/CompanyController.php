@@ -56,7 +56,20 @@ class CompanyController extends Controller
     {
         try {
             $data = Cache::remember('company.settings', 3600, function () {
-                return Setting::getAll();
+                $settings = Setting::getAll();
+                
+                // Add full URL for file uploads
+                if (!empty($settings['site_logo'])) {
+                    $fullPath = 'storage/' . $settings['site_logo'];
+                    $settings['site_logo'] = url($fullPath);
+                }
+                
+                if (!empty($settings['site_favicon'])) {
+                    $fullPath = 'storage/' . $settings['site_favicon'];
+                    $settings['site_favicon'] = url($fullPath);
+                }
+                
+                return $settings;
             });
 
             return response()->json(['data' => $data]);

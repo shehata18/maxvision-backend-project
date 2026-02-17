@@ -38,6 +38,8 @@ class ManageSettings extends Page implements HasForms
             'site_name' => $settings['site_name'] ?? 'MaxVision Display Inc.',
             'site_tagline' => $settings['site_tagline'] ?? '',
             'site_description' => $settings['site_description'] ?? '',
+            'site_logo' => $settings['site_logo'] ?? '',
+            'site_favicon' => $settings['site_favicon'] ?? '',
             'contact_phone' => $settings['contact_phone'] ?? '',
             'contact_email' => $settings['contact_email'] ?? '',
             'contact_address' => $settings['contact_address'] ?? '',
@@ -60,6 +62,22 @@ class ManageSettings extends Page implements HasForms
                     ->description('Basic site information')
                     ->icon('heroicon-o-globe-alt')
                     ->schema([
+                        Forms\Components\FileUpload::make('site_logo')
+                            ->label('Site Logo')
+                            ->image()
+                            ->disk('public')
+                            ->directory('settings')
+                            ->nullable()
+                            ->helperText('Upload your company logo (recommended: 200x60px, PNG or SVG)')
+                            ->columnSpan(2),
+                        Forms\Components\FileUpload::make('site_favicon')
+                            ->label('Favicon')
+                            ->image()
+                            ->disk('public')
+                            ->directory('settings')
+                            ->nullable()
+                            ->helperText('Upload favicon (recommended: 32x32px or 64x64px, PNG or ICO)')
+                            ->columnSpan(2),
                         Forms\Components\TextInput::make('site_name')
                             ->required()
                             ->maxLength(255)
@@ -176,7 +194,7 @@ class ManageSettings extends Page implements HasForms
         $stringSettings = [
             'site_name', 'site_tagline', 'contact_phone', 'contact_email',
             'social_linkedin', 'social_youtube', 'social_twitter',
-            'hero_title', 'footer_copyright',
+            'hero_title', 'footer_copyright', 'site_logo', 'site_favicon',
         ];
 
         $textSettings = [

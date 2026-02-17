@@ -26,12 +26,27 @@ class CaseStudyResource extends JsonResource
             'image' => $this->image_url,
             'imageResponsive' => $this->image_responsive,
             'description' => $this->description,
+            'challenge' => $this->challenge,
+            'solution' => $this->solution,
             'is_featured' => $this->is_featured,
             'metrics' => $this->whenLoaded('metrics', function () {
-                return $this->metrics->take(2)->map(fn ($metric) => [
+                return $this->metrics->map(fn ($metric) => [
                     'label' => $metric->label,
                     'value' => $metric->value,
                     'icon' => $metric->icon,
+                ])->toArray();
+            }),
+            'specs' => $this->whenLoaded('specs', function () {
+                return $this->specs->map(fn ($spec) => [
+                    'label' => $spec->label,
+                    'value' => $spec->value,
+                ])->toArray();
+            }),
+            'products' => $this->whenLoaded('products', function () {
+                return $this->products->map(fn ($product) => [
+                    'name' => $product->pivot->product_name ?? $product->name,
+                    'slug' => $product->slug,
+                    'href' => '/products/' . $product->slug,
                 ])->toArray();
             }),
         ];

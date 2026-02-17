@@ -53,7 +53,8 @@ class ContactRequest extends FormRequest
             'budget_range' => [
                 'required',
                 'string',
-                'in:Under $10,000,$10,000 – $25,000,$25,000 – $50,000,$50,000 – $100,000,$100,000 – $250,000,$250,000+,Not sure yet',
+                'min:1',
+                'max:100',
             ],
             'message' => 'nullable|string|max:2000',
             'honeypot' => 'nullable|string|max:0',

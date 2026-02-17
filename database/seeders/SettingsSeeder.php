@@ -16,6 +16,8 @@ class SettingsSeeder extends Seeder
         Setting::set('site_name', 'MaxVision Display Inc.', 'string');
         Setting::set('site_tagline', 'High-Performance LED Display Solutions', 'string');
         Setting::set('site_description', 'High-performance LED display solutions engineered for impact. Custom installations for retail, outdoor, events, and architectural applications.', 'text');
+        Setting::set('site_logo', '/logo.svg', 'string');
+        Setting::set('site_favicon', '/favicon.ico', 'string');
 
         // Contact Information
         Setting::set('contact_phone', '1-888-LED-PROS', 'string');
