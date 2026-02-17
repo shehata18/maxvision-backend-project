@@ -128,4 +128,20 @@ class Solution extends Model
     {
         return $query->where('category', $category);
     }
+
+    /**
+     * Get full URL for the solution image.
+     */
+    public function getImageUrlAttribute(): ?string
+    {
+        return $this->image ? app(\App\Services\ImageService::class)->getUrl($this->image) : null;
+    }
+
+    /**
+     * Get responsive image URLs for all thumbnail sizes.
+     */
+    public function getImageResponsiveAttribute(): array
+    {
+        return $this->image ? app(\App\Services\ImageService::class)->getResponsiveUrls($this->image) : [];
+    }
 }

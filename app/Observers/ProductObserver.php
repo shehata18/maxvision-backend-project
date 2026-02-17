@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Product;
+use App\Services\ImageService;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 
@@ -21,6 +22,20 @@ class ProductObserver
      */
     public function deleted(Product $product): void
     {
+        // Clean up images
+        try {
+            $imageService = app(ImageService::class);
+            $imageService->delete($product->image);
+            if (!empty($product->gallery)) {
+                $imageService->deleteMultiple($product->gallery);
+            }
+        } catch (\Exception $e) {
+            Log::warning('Failed to delete product images', [
+                'product' => $product->slug,
+                'error' => $e->getMessage(),
+            ]);
+        }
+
         $this->clearProductCaches($product);
     }
 

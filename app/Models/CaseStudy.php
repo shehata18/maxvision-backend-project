@@ -158,4 +158,20 @@ class CaseStudy extends Model
     {
         return $query->where('industry', $industry);
     }
+
+    /**
+     * Get full URL for the case study image.
+     */
+    public function getImageUrlAttribute(): ?string
+    {
+        return $this->image ? app(\App\Services\ImageService::class)->getUrl($this->image) : null;
+    }
+
+    /**
+     * Get responsive image URLs for all thumbnail sizes.
+     */
+    public function getImageResponsiveAttribute(): array
+    {
+        return $this->image ? app(\App\Services\ImageService::class)->getResponsiveUrls($this->image) : [];
+    }
 }

@@ -93,7 +93,10 @@ class CaseStudyResource extends Resource
                             ->maxSize(5120)
                             ->disk('public')
                             ->directory('case-studies')
-                            ->imageEditor(),
+                            ->imageEditor()
+                            ->optimize('webp')
+                            ->resize(1920)
+                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp']),
                         Forms\Components\Textarea::make('description')
                             ->required()
                             ->rows(3)

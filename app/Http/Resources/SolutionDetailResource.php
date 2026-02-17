@@ -23,7 +23,8 @@ class SolutionDetailResource extends JsonResource
             'tagline' => $this->tagline,
             'description' => $this->description,
             'category' => $this->category,
-            'image' => $this->image ? url('storage/' . $this->image) : null,
+            'image' => $this->image_url,
+            'imageResponsive' => $this->image_responsive,
             'benefits' => $this->whenLoaded('benefits', function () {
                 return $this->benefits->pluck('benefit_text')->toArray();
             }),

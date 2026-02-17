@@ -22,7 +22,8 @@ class SolutionResource extends JsonResource
             'title' => $this->title,
             'tagline' => $this->tagline,
             'category' => $this->category,
-            'image' => $this->image ? url('storage/' . $this->image) : null,
+            'image' => $this->image_url,
+            'imageResponsive' => $this->image_responsive,
             'description' => $this->description ? Str::limit($this->description, 200) : null,
         ];
     }

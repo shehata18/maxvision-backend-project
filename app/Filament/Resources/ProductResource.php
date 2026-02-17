@@ -155,7 +155,10 @@ class ProductResource extends Resource
                             ->directory('products')
                             ->imageEditor()
                             ->imageResizeMode('cover')
-                            ->imageCropAspectRatio('1:1'),
+                            ->imageCropAspectRatio('1:1')
+                            ->optimize('webp')
+                            ->resize(1920)
+                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp']),
                         Forms\Components\FileUpload::make('gallery')
                             ->multiple()
                             ->image()
@@ -164,7 +167,10 @@ class ProductResource extends Resource
                             ->disk('public')
                             ->directory('products/gallery')
                             ->imageEditor()
-                            ->reorderable(),
+                            ->reorderable()
+                            ->optimize('webp')
+                            ->resize(1920)
+                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp']),
                     ])->columns(2),
 
                 Forms\Components\Section::make('Features')

@@ -191,4 +191,38 @@ class Product extends Model
     {
         return "{$this->brightness_min}-{$this->brightness_max} nits";
     }
+
+    /**
+     * Get full URL for the product image.
+     */
+    public function getImageUrlAttribute(): ?string
+    {
+        return $this->image ? app(\App\Services\ImageService::class)->getUrl($this->image) : null;
+    }
+
+    /**
+     * Get responsive image URLs for all thumbnail sizes.
+     */
+    public function getImageResponsiveAttribute(): array
+    {
+        return $this->image ? app(\App\Services\ImageService::class)->getResponsiveUrls($this->image) : [];
+    }
+
+    /**
+     * Get full URLs for the product gallery images.
+     */
+    public function getGalleryUrlsAttribute(): array
+    {
+        $service = app(\App\Services\ImageService::class);
+        return array_map(fn ($path) => $service->getUrl($path), $this->gallery ?? []);
+    }
+
+    /**
+     * Get responsive URLs for each gallery image.
+     */
+    public function getGalleryResponsiveAttribute(): array
+    {
+        $service = app(\App\Services\ImageService::class);
+        return array_map(fn ($path) => $service->getResponsiveUrls($path), $this->gallery ?? []);
+    }
 }

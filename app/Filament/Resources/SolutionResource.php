@@ -91,7 +91,10 @@ class SolutionResource extends Resource
                             ->disk('public')
                             ->directory('solutions')
                             ->imageEditor()
-                            ->imageCropAspectRatio('16:9'),
+                            ->imageCropAspectRatio('16:9')
+                            ->optimize('webp')
+                            ->resize(1920)
+                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp']),
                     ])->columns(2),
 
                 Forms\Components\Section::make('Benefits')

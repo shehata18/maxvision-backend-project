@@ -23,7 +23,8 @@ class CaseStudyResource extends JsonResource
             'industry' => $this->industry,
             'location' => $this->location,
             'date' => $this->date,
-            'image' => $this->image ? url('storage/' . $this->image) : null,
+            'image' => $this->image_url,
+            'imageResponsive' => $this->image_responsive,
             'description' => $this->description,
             'is_featured' => $this->is_featured,
             'metrics' => $this->whenLoaded('metrics', function () {
