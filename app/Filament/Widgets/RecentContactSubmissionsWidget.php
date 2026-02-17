@@ -12,7 +12,7 @@ class RecentContactSubmissionsWidget extends BaseWidget
 {
     protected static ?string $heading = 'Recent Inquiries';
 
-    protected static ?int $sort = 3;
+    protected static ?int $sort = 7;
 
     protected int|string|array $columnSpan = 'full';
 

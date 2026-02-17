@@ -92,8 +92,7 @@ class SolutionResource extends Resource
                             ->directory('solutions')
                             ->imageEditor()
                             ->imageCropAspectRatio('16:9')
-                            ->optimize('webp')
-                            ->resize(1920)
+
                             ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp']),
                     ])->columns(2),
 

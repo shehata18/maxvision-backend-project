@@ -117,6 +117,17 @@ class ProductController extends Controller
                 ], 404);
             }
 
+            // Track product view
+            try {
+                $product->incrementViewCount();
+                Cache::forget("product.{$slug}");
+            } catch (\Exception $e) {
+                Log::warning('Failed to track product view', [
+                    'slug' => $slug,
+                    'error' => $e->getMessage(),
+                ]);
+            }
+
             return new ProductDetailResource($product);
         } catch (\Exception $e) {
             Log::error('Failed to fetch product detail', [

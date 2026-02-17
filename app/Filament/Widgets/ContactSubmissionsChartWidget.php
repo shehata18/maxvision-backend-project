@@ -10,7 +10,7 @@ class ContactSubmissionsChartWidget extends ChartWidget
 {
     protected static ?string $heading = 'Submissions (Last 30 Days)';
 
-    protected static ?int $sort = 2;
+    protected static ?int $sort = 6;
 
     protected int|string|array $columnSpan = 'full';
 

@@ -77,6 +77,7 @@ class Product extends Model
         'gallery',
         'slug',
         'is_active',
+        'view_count',
     ];
 
     /**
@@ -90,6 +91,7 @@ class Product extends Model
         'pixel_pitch' => 'decimal:2',
         'brightness_min' => 'integer',
         'brightness_max' => 'integer',
+        'view_count' => 'integer',
     ];
 
     /**
@@ -178,6 +180,28 @@ class Product extends Model
     public function scopeByCategory($query, string $category)
     {
         return $query->where('category', $category);
+    }
+
+    /**
+     * Scope a query to get most viewed products.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param int $limit
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeMostViewed($query, int $limit = 10)
+    {
+        return $query->orderByDesc('view_count')->limit($limit);
+    }
+
+    /**
+     * Increment the product view count without updating timestamps.
+     */
+    public function incrementViewCount(): void
+    {
+        $this->timestamps = false;
+        $this->increment('view_count');
+        $this->timestamps = true;
     }
 
     /**

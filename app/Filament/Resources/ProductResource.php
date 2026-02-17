@@ -156,8 +156,6 @@ class ProductResource extends Resource
                             ->imageEditor()
                             ->imageResizeMode('cover')
                             ->imageCropAspectRatio('1:1')
-                            ->optimize('webp')
-                            ->resize(1920)
                             ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp']),
                         Forms\Components\FileUpload::make('gallery')
                             ->multiple()
@@ -168,8 +166,6 @@ class ProductResource extends Resource
                             ->directory('products/gallery')
                             ->imageEditor()
                             ->reorderable()
-                            ->optimize('webp')
-                            ->resize(1920)
                             ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp']),
                     ])->columns(2),
 
