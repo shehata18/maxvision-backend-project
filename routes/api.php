@@ -3,6 +3,8 @@
 use App\Http\Controllers\Api\CaseStudyController;
 use App\Http\Controllers\Api\CompanyController;
 use App\Http\Controllers\Api\ContactController;
+use App\Http\Controllers\Api\JobApplicationController;
+use App\Http\Controllers\Api\JobListingController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\SolutionController;
 use Illuminate\Http\Request;
@@ -42,4 +44,12 @@ Route::get('/company/settings', [CompanyController::class, 'settings']);
 
 // ─── Contact / Quote Request ─────────────────────────────────────
 Route::post('/contact', [ContactController::class, 'store'])->middleware('throttle:contact');
+
+// ─── Careers / Job Listings ───────────────────────────────────────
+Route::get('/jobs/filters', [JobListingController::class, 'filters']);
+Route::get('/jobs', [JobListingController::class, 'index']);
+Route::get('/jobs/{slug}', [JobListingController::class, 'show']);
+
+// ─── Job Applications ──────────────────────────────────────────────
+Route::post('/job-applications', [JobApplicationController::class, 'store'])->middleware('throttle:contact');
 

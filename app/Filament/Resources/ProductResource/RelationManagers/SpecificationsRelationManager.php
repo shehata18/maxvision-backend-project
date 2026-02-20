@@ -42,7 +42,7 @@ class SpecificationsRelationManager extends RelationManager
             ->columns([
                 Tables\Columns\TextColumn::make('order')
                     ->sortable()
-                    ->width(80),
+                    ->grow(false),
                 Tables\Columns\TextColumn::make('spec_key')
                     ->searchable()
                     ->label('Key')

@@ -36,7 +36,7 @@ class ApplicationsRelationManager extends RelationManager
             ->columns([
                 Tables\Columns\TextColumn::make('order')
                     ->sortable()
-                    ->width(80),
+                    ->grow(false),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
             ])

@@ -42,6 +42,7 @@ class AdminPanelProvider extends PanelProvider
                 'Products',
                 'Solutions',
                 'Case Studies',
+                'Company',
                 'Content',
                 'Inquiries',
             ])

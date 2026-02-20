@@ -34,6 +34,7 @@ class DatabaseSeeder extends Seeder
             ProductSeeder::class,       // Must run first (products needed for relationships)
             SolutionSeeder::class,      // Depends on products
             CaseStudySeeder::class,     // Depends on products
+            JobListingSeeder::class,    // Career listings
             CompanyInfoSeeder::class,
             SettingsSeeder::class,
         ]);

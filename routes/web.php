@@ -16,3 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Admin routes for job applications
+Route::get('/admin/job-applications/{id}/download-resume', [\App\Http\Controllers\Api\JobApplicationController::class, 'downloadResume'])
+    ->middleware(['auth'])
+    ->name('admin.job-applications.download-resume');
