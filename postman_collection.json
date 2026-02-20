@@ -1,0 +1,541 @@
+{
+  "info": {
+    "name": "Maxvision Display Inc. API",
+    "description": "Complete API documentation for Maxvision Display Inc. - LED Display Solutions\n\nBase URL: http://127.0.0.1:8000/api\n\nAll responses follow this structure:\n- Success: Returns data directly or wrapped in 'data' object\n- Error: Returns { \"message\": \"Error description\" }",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000/api",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "Get Product Categories",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/products/categories",
+              "host": ["{{base_url}}"],
+              "path": ["products", "categories"]
+            },
+            "description": "Get all product categories with active product counts.\n\n**Response:**\n```json\n{\n  \"data\": [\n    {\n      \"id\": \"outdoor\",\n      \"label\": \"Outdoor LED Screens\",\n      \"count\": 12\n    },\n    {\n      \"id\": \"indoor\",\n      \"label\": \"Indoor LED Walls\",\n      \"count\": 8\n    }\n  ]\n}\n```"
+          },
+          "response": []
+        },
+        {
+          "name": "List Products",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/products?category=outdoor&pixel_pitch_min=1&pixel_pitch_max=10&brightness_min=5000&search=PTF&per_page=12&page=1",
+              "host": ["{{base_url}}"],
+              "path": ["products"],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "outdoor",
+                  "description": "Filter by category: outdoor, indoor, transparent, posters, controllers"
+                },
+                {
+                  "key": "pixel_pitch_min",
+                  "value": "1",
+                  "description": "Minimum pixel pitch (numeric)"
+                },
+                {
+                  "key": "pixel_pitch_max",
+                  "value": "10",
+                  "description": "Maximum pixel pitch (numeric)"
+                },
+                {
+                  "key": "brightness_min",
+                  "value": "5000",
+                  "description": "Minimum brightness in nits (integer)"
+                },
+                {
+                  "key": "search",
+                  "value": "PTF",
+                  "description": "Search in name, series, description"
+                },
+                {
+                  "key": "per_page",
+                  "value": "12",
+                  "description": "Items per page (default: 12, max: 50)"
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number"
+                }
+              ]
+            },
+            "description": "Get paginated list of active products with optional filtering.\n\n**Response:**\n```json\n{\n  \"data\": [\n    {\n      \"id\": \"ptf-p3\",\n      \"name\": \"PTF-P3 Transparent LED Display\",\n      \"series\": \"PTF\",\n      \"category\": \"transparent\",\n      \"image\": \"http://127.0.0.1:8000/storage/products/ptf-p3.jpg\",\n      \"environment\": \"indoor\",\n      \"brightness\": 4500,\n      \"brightnessRange\": \"4000-5000 nits\",\n      \"pixelPitch\": 3.0,\n      \"pixelPitchLabel\": \"P3\",\n      \"cabinetSize\": \"1000x500mm\",\n      \"advantage\": \"High Transparency Rate\",\n      \"price\": \"Contact for Quote\"\n    }\n  ],\n  \"links\": { \"first\": \"...\", \"last\": \"...\", \"prev\": null, \"next\": \"...\" },\n  \"meta\": { \"current_page\": 1, \"from\": 1, \"last_page\": 3, \"per_page\": 12, \"to\": 12, \"total\": 30 }\n}\n```"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Product Detail",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/products/ptf-p3",
+              "host": ["{{base_url}}"],
+              "path": ["products", ":slug"],
+              "variable": [
+                {
+                  "key": "slug",
+                  "value": "ptf-p3",
+                  "description": "Product slug/ID"
+                }
+              ]
+            },
+            "description": "Get a single product with full details including features, applications, and specifications.\n\n**Response:**\n```json\n{\n  \"data\": {\n    \"id\": \"ptf-p3\",\n    \"name\": \"PTF-P3 Transparent LED Display\",\n    \"series\": \"PTF\",\n    \"category\": \"transparent\",\n    \"slug\": \"ptf-p3\",\n    \"description\": \"High-performance transparent LED display...\",\n    \"image\": \"http://127.0.0.1:8000/storage/products/ptf-p3.jpg\",\n    \"gallery\": [\"image1.jpg\", \"image2.jpg\"],\n    \"environment\": \"indoor\",\n    \"brightness\": 4500,\n    \"brightnessRange\": \"4000-5000 nits\",\n    \"pixelPitch\": 3.0,\n    \"pixelPitchLabel\": \"P3\",\n    \"cabinetSize\": \"1000x500mm\",\n    \"viewCount\": 150,\n    \"features\": [\n      { \"icon\": \"eye\", \"title\": \"High Transparency\", \"description\": \"Up to 80% transparency rate\" }\n    ],\n    \"applications\": [\"Retail Windows\", \"Showrooms\", \"Museums\"],\n    \"specifications\": [\n      { \"label\": \"Pixel Pitch\", \"value\": \"3mm\" },\n      { \"label\": \"Brightness\", \"value\": \"4000-5000 nits\" }\n    ],\n    \"price\": \"Contact for Quote\"\n  }\n}\n```"
+          },
+          "response": []
+        }
+      ],
+      "description": "Product catalog endpoints for LED displays"
+    },
+    {
+      "name": "Solutions",
+      "item": [
+        {
+          "name": "List Solutions",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/solutions",
+              "host": ["{{base_url}}"],
+              "path": ["solutions"]
+            },
+            "description": "Get all active solutions categorized by industry/application.\n\n**Response:**\n```json\n{\n  \"data\": [\n    {\n      \"id\": \"retail\",\n      \"title\": \"Retail Storefronts\",\n      \"slug\": \"retail\",\n      \"category\": \"retail\",\n      \"description\": \"Transform your retail space...\",\n      \"image\": \"http://127.0.0.1:8000/storage/solutions/retail.jpg\",\n      \"icon\": \"store\"\n    }\n  ]\n}\n```"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Solution Detail",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/solutions/retail",
+              "host": ["{{base_url}}"],
+              "path": ["solutions", ":slug"],
+              "variable": [
+                {
+                  "key": "slug",
+                  "value": "retail",
+                  "description": "Solution slug"
+                }
+              ]
+            },
+            "description": "Get detailed solution information including benefits, specs, and related products.\n\n**Response:**\n```json\n{\n  \"data\": {\n    \"id\": \"retail\",\n    \"title\": \"Retail Storefronts\",\n    \"slug\": \"retail\",\n    \"category\": \"retail\",\n    \"description\": \"Transform your retail space...\",\n    \"heroImage\": \"http://127.0.0.1:8000/storage/solutions/retail-hero.jpg\",\n    \"benefits\": [\n      { \"title\": \"Increased Foot Traffic\", \"description\": \"Attract more customers...\" }\n    ],\n    \"specs\": [\n      { \"label\": \"Recommended Brightness\", \"value\": \"3000-5000 nits\" }\n    ],\n    \"products\": [\n      { \"id\": \"ptf-p3\", \"name\": \"PTF-P3\", \"image\": \"...\" }\n    ],\n    \"caseStudies\": [\n      { \"id\": \"nike-flagship\", \"title\": \"Nike Flagship Store\" }\n    ]\n  }\n}\n```"
+          },
+          "response": []
+        }
+      ],
+      "description": "Industry solution endpoints"
+    },
+    {
+      "name": "Case Studies",
+      "item": [
+        {
+          "name": "List Case Studies",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/case-studies?industry=retail&per_page=10",
+              "host": ["{{base_url}}"],
+              "path": ["case-studies"],
+              "query": [
+                {
+                  "key": "industry",
+                  "value": "retail",
+                  "description": "Filter by industry"
+                },
+                {
+                  "key": "per_page",
+                  "value": "10",
+                  "description": "Items per page"
+                }
+              ]
+            },
+            "description": "Get paginated list of case studies.\n\n**Response:**\n```json\n{\n  \"data\": [\n    {\n      \"id\": \"nike-flagship\",\n      \"title\": \"Nike Flagship Store NYC\",\n      \"slug\": \"nike-flagship\",\n      \"client\": \"Nike\",\n      \"industry\": \"retail\",\n      \"location\": \"New York, USA\",\n      \"description\": \"Immersive retail experience...\",\n      \"thumbnail\": \"http://127.0.0.1:8000/storage/case-studies/nike.jpg\",\n      \"completionDate\": \"2024-06-15\"\n    }\n  ]\n}\n```"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Case Study Detail",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/case-studies/nike-flagship",
+              "host": ["{{base_url}}"],
+              "path": ["case-studies", ":slug"],
+              "variable": [
+                {
+                  "key": "slug",
+                  "value": "nike-flagship",
+                  "description": "Case study slug"
+                }
+              ]
+            },
+            "description": "Get detailed case study with metrics, specs, and gallery.\n\n**Response:**\n```json\n{\n  \"data\": {\n    \"id\": \"nike-flagship\",\n    \"title\": \"Nike Flagship Store NYC\",\n    \"client\": \"Nike\",\n    \"industry\": \"retail\",\n    \"location\": \"New York, USA\",\n    \"description\": \"Immersive retail experience...\",\n    \"challenge\": \"Create an immersive experience...\",\n    \"solution\": \"Installed 50sqm of PTF-P3...\",\n    \"results\": \"40% increase in foot traffic...\",\n    \"gallery\": [\"img1.jpg\", \"img2.jpg\"],\n    \"metrics\": [\n      { \"label\": \"Display Size\", \"value\": \"50 sqm\" },\n      { \"label\": \"Foot Traffic Increase\", \"value\": \"40%\" }\n    ],\n    \"specs\": [\n      { \"label\": \"Product Used\", \"value\": \"PTF-P3\" },\n      { \"label\": \"Installation Time\", \"value\": \"2 weeks\" }\n    ],\n    \"products\": [\"ptf-p3\"],\n    \"completionDate\": \"2024-06-15\"\n  }\n}\n```"
+          },
+          "response": []
+        }
+      ],
+      "description": "Customer success stories and project showcases"
+    },
+    {
+      "name": "Company",
+      "item": [
+        {
+          "name": "Get About Page Data",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/company/about",
+              "host": ["{{base_url}}"],
+              "path": ["company", "about"]
+            },
+            "description": "Get company information for the About page.\n\n**Response:**\n```json\n{\n  \"data\": {\n    \"companyName\": \"Maxvision Display Inc.\",\n    \"tagline\": \"Leading LED Display Solutions\",\n    \"founded\": \"2010\",\n    \"headquarters\": \"Toronto, Canada\",\n    \"description\": \"High-performance LED display solutions...\",\n    \"mission\": \"To revolutionize visual communication...\",\n    \"vision\": \"A world where every display tells a story\",\n    \"values\": [\"Innovation\", \"Quality\", \"Customer Focus\"],\n    \"stats\": [\n      { \"label\": \"Years Experience\", \"value\": \"15+\" },\n      { \"label\": \"Projects Completed\", \"value\": \"5,000+\" },\n      { \"label\": \"Countries Served\", \"value\": \"50+\" }\n    ],\n    \"team\": [\n      { \"name\": \"John Smith\", \"role\": \"CEO\", \"image\": \"...\" }\n    ],\n    \"certifications\": [\"ISO 9001\", \"CE\", \"UL\"]\n  }\n}\n```"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Site Settings",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/company/settings",
+              "host": ["{{base_url}}"],
+              "path": ["company", "settings"]
+            },
+            "description": "Get site-wide settings including contact info, social links, and branding.\n\n**Response:**\n```json\n{\n  \"data\": {\n    \"site_name\": \"Maxvision Display Inc.\",\n    \"site_logo\": \"http://127.0.0.1:8000/storage/logo.png\",\n    \"site_favicon\": \"http://127.0.0.1:8000/storage/favicon.ico\",\n    \"contact_phone\": \"1-888-LED-PROS\",\n    \"contact_email\": \"sales@maxvisiondisplay.com\",\n    \"contact_address\": \"123 Technology Drive\\nToronto, ON M5V 1A1, Canada\",\n    \"social_linkedin\": \"https://linkedin.com/company/maxvision\",\n    \"social_youtube\": \"https://youtube.com/maxvision\",\n    \"social_twitter\": \"https://twitter.com/maxvision\",\n    \"footer_about\": \"High-performance LED display solutions...\",\n    \"footer_copyright\": \"© 2026 Maxvision Display Inc. All rights reserved.\"\n  }\n}\n```"
+          },
+          "response": []
+        }
+      ],
+      "description": "Company information and site settings"
+    },
+    {
+      "name": "Contact",
+      "item": [
+        {
+          "name": "Submit Contact Form",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"first_name\": \"John\",\n  \"last_name\": \"Doe\",\n  \"email\": \"john.doe@example.com\",\n  \"phone\": \"+1-555-123-4567\",\n  \"company\": \"Acme Corp\",\n  \"project_type\": \"Outdoor Advertising\",\n  \"timeline\": \"1 – 3 months\",\n  \"size_requirements\": \"Looking for a 3m x 2m outdoor display for storefront\",\n  \"budget_range\": \"$10,000 - $25,000\",\n  \"message\": \"I'm interested in getting a quote for an outdoor LED display for our retail location.\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/contact",
+              "host": ["{{base_url}}"],
+              "path": ["contact"]
+            },
+            "description": "Submit a contact/quote request. Rate limited to prevent spam.\n\n**Required Fields:**\n- `first_name` (string, max: 50)\n- `last_name` (string, max: 50)\n- `email` (valid email, max: 255)\n- `project_type` (one of: Outdoor Advertising, Indoor LED Wall, Transparent Display, LED Poster / Signage, Architectural Facade, Retail Storefront, Corporate / Control Room, Events & Stages, Other)\n- `timeline` (one of: Immediate (< 1 month), 1 – 3 months, 3 – 6 months, 6 – 12 months, Planning / Research phase)\n- `size_requirements` (string, max: 500)\n- `budget_range` (string, max: 100)\n\n**Optional Fields:**\n- `phone` (string, max: 30)\n- `company` (string, max: 100)\n- `message` (string, max: 2000)\n\n**Success Response (201):**\n```json\n{\n  \"message\": \"Quote request submitted successfully.\",\n  \"submission_id\": 123\n}\n```\n\n**Error Response (422):**\n```json\n{\n  \"message\": \"The given data was invalid.\",\n  \"errors\": {\n    \"email\": [\"Please provide a valid email address.\"]\n  }\n}\n```"
+          },
+          "response": []
+        }
+      ],
+      "description": "Contact form submission (rate limited)"
+    },
+    {
+      "name": "Careers",
+      "item": [
+        {
+          "name": "Get Job Filters",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/jobs/filters",
+              "host": ["{{base_url}}"],
+              "path": ["jobs", "filters"]
+            },
+            "description": "Get available job filter options (categories, locations, types).\n\n**Response:**\n```json\n{\n  \"data\": {\n    \"categories\": [\n      { \"value\": \"engineering\", \"label\": \"Engineering\" },\n      { \"value\": \"sales\", \"label\": \"Sales\" }\n    ],\n    \"locations\": [\n      { \"value\": \"toronto\", \"label\": \"Toronto, ON\" },\n      { \"value\": \"remote\", \"label\": \"Remote\" }\n    ],\n    \"types\": [\n      { \"value\": \"full-time\", \"label\": \"Full-time\" },\n      { \"value\": \"part-time\", \"label\": \"Part-time\" }\n    ]\n  }\n}\n```"
+          },
+          "response": []
+        },
+        {
+          "name": "List Jobs",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/jobs?category=engineering&location=toronto&type=full-time&search=developer&per_page=10",
+              "host": ["{{base_url}}"],
+              "path": ["jobs"],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "engineering",
+                  "description": "Filter by category"
+                },
+                {
+                  "key": "location",
+                  "value": "toronto",
+                  "description": "Filter by location"
+                },
+                {
+                  "key": "type",
+                  "value": "full-time",
+                  "description": "Filter by employment type"
+                },
+                {
+                  "key": "search",
+                  "value": "developer",
+                  "description": "Search in title and description"
+                },
+                {
+                  "key": "per_page",
+                  "value": "10",
+                  "description": "Items per page"
+                }
+              ]
+            },
+            "description": "Get paginated list of active job listings.\n\n**Response:**\n```json\n{\n  \"data\": [\n    {\n      \"id\": \"senior-fullstack-developer\",\n      \"title\": \"Senior Full-Stack Developer\",\n      \"slug\": \"senior-fullstack-developer\",\n      \"category\": \"engineering\",\n      \"categoryLabel\": \"Engineering\",\n      \"location\": \"toronto\",\n      \"locationLabel\": \"Toronto, ON\",\n      \"type\": \"full-time\",\n      \"typeLabel\": \"Full-time\",\n      \"department\": \"Engineering\",\n      \"description\": \"We're looking for a senior developer...\",\n      \"salaryRange\": \"$120,000 - $150,000\",\n      \"postedAt\": \"2026-02-15\",\n      \"isRemote\": true,\n      \"isUrgent\": false\n    }\n  ],\n  \"meta\": { \"current_page\": 1, \"total\": 5 }\n}\n```"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Job Detail",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/jobs/senior-fullstack-developer",
+              "host": ["{{base_url}}"],
+              "path": ["jobs", ":slug"],
+              "variable": [
+                {
+                  "key": "slug",
+                  "value": "senior-fullstack-developer",
+                  "description": "Job slug"
+                }
+              ]
+            },
+            "description": "Get detailed job listing with full description and requirements.\n\n**Response:**\n```json\n{\n  \"data\": {\n    \"id\": \"senior-fullstack-developer\",\n    \"title\": \"Senior Full-Stack Developer\",\n    \"slug\": \"senior-fullstack-developer\",\n    \"category\": \"engineering\",\n    \"categoryLabel\": \"Engineering\",\n    \"location\": \"toronto\",\n    \"locationLabel\": \"Toronto, ON\",\n    \"type\": \"full-time\",\n    \"typeLabel\": \"Full-time\",\n    \"department\": \"Engineering\",\n    \"description\": \"We're looking for a senior developer...\",\n    \"responsibilities\": [\"Lead development projects\", \"Mentor junior developers\"],\n    \"requirements\": [\"5+ years experience\", \"Strong in React/Laravel\"],\n    \"benefits\": [\"Competitive salary\", \"Remote work options\"],\n    \"salaryRange\": \"$120,000 - $150,000\",\n    \"postedAt\": \"2026-02-15\",\n    \"applicationDeadline\": \"2026-03-15\",\n    \"isRemote\": true,\n    \"isUrgent\": false,\n    \"contactEmail\": \"careers@maxvisiondisplay.com\"\n  }\n}\n```"
+          },
+          "response": []
+        }
+      ],
+      "description": "Job listings endpoints"
+    },
+    {
+      "name": "Job Applications",
+      "item": [
+        {
+          "name": "Submit Job Application",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "job_id",
+                  "value": "senior-fullstack-developer",
+                  "description": "Job slug (optional for general applications)",
+                  "type": "text"
+                },
+                {
+                  "key": "first_name",
+                  "value": "John",
+                  "description": "Required",
+                  "type": "text"
+                },
+                {
+                  "key": "last_name",
+                  "value": "Doe",
+                  "description": "Required",
+                  "type": "text"
+                },
+                {
+                  "key": "email",
+                  "value": "john.doe@example.com",
+                  "description": "Required - valid email",
+                  "type": "text"
+                },
+                {
+                  "key": "phone",
+                  "value": "+1-555-123-4567",
+                  "description": "Optional",
+                  "type": "text"
+                },
+                {
+                  "key": "cover_letter",
+                  "value": "I am excited to apply for this position...",
+                  "description": "Optional - max 5000 characters",
+                  "type": "text"
+                },
+                {
+                  "key": "resume",
+                  "description": "Required (unless linkedin_url provided) - PDF, DOC, DOCX, max 10MB",
+                  "type": "file",
+                  "src": ""
+                },
+                {
+                  "key": "linkedin_url",
+                  "value": "https://linkedin.com/in/johndoe",
+                  "description": "Optional - valid URL",
+                  "type": "text"
+                },
+                {
+                  "key": "portfolio_url",
+                  "value": "https://johndoe.dev",
+                  "description": "Optional - valid URL",
+                  "type": "text"
+                },
+                {
+                  "key": "is_general",
+                  "value": "false",
+                  "description": "Set to true for general application (no specific job)",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/job-applications",
+              "host": ["{{base_url}}"],
+              "path": ["job-applications"]
+            },
+            "description": "Submit a job application. Use multipart/form-data for file upload.\n\n**Required Fields:**\n- `first_name` (string, max: 100)\n- `last_name` (string, max: 100)\n- `email` (valid email, max: 255)\n- `resume` OR `linkedin_url` (at least one required)\n\n**Optional Fields:**\n- `job_id` (string, existing job slug) - omit for general applications\n- `phone` (string, max: 50)\n- `cover_letter` (string, max: 5000)\n- `linkedin_url` (valid URL, max: 500)\n- `portfolio_url` (valid URL, max: 500)\n- `is_general` (boolean) - set true for general resume submission\n\n**File Requirements:**\n- `resume`: PDF, DOC, or DOCX format\n- Maximum file size: 10MB\n\n**Success Response (201):**\n```json\n{\n  \"message\": \"Application submitted successfully!\",\n  \"application_id\": 45\n}\n```\n\n**Validation Error (422):**\n```json\n{\n  \"message\": \"The given data was invalid.\",\n  \"errors\": {\n    \"resume\": [\"Please upload a resume or provide your LinkedIn URL.\"],\n    \"email\": [\"The email has already been taken.\"]\n  }\n}\n```"
+          },
+          "response": []
+        }
+      ],
+      "description": "Job application submission (multipart/form-data)"
+    },
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Get Authenticated User",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "description": "Sanctum API token"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/user",
+              "host": ["{{base_url}}"],
+              "path": ["user"]
+            },
+            "description": "Get the authenticated user (requires Sanctum token).\n\n**Headers:**\n- Authorization: Bearer {token}\n\n**Response:**\n```json\n{\n  \"id\": 1,\n  \"name\": \"Admin User\",\n  \"email\": \"admin@maxvisiondisplay.com\",\n  \"email_verified_at\": \"2026-01-01T00:00:00.000000Z\",\n  \"created_at\": \"2026-01-01T00:00:00.000000Z\"\n}\n```"
+          },
+          "response": []
+        }
+      ],
+      "description": "Authentication endpoints (requires Sanctum token)"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  }
+}
