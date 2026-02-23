@@ -19,7 +19,10 @@ return [
 
     'allowed_methods' => ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => [
+        'http://145.223.118.125:3000',
+
+    ],
 
     'allowed_origins_patterns' => [],
 
@@ -27,8 +30,8 @@ return [
 
     'exposed_headers' => ['X-RateLimit-Limit', 'X-RateLimit-Remaining'],
 
-    'max_age' => 86400,
+    'max_age' => 0,
 
-    'supports_credentials' => false,
+    'supports_credentials' => true,
 
 ];
