@@ -32,6 +32,9 @@ use Illuminate\Support\Str;
  * @property string|null $description
  * @property string|null $image
  * @property array|null $gallery
+ * @property string|null $specs_pdf
+ * @property string|null $datasheet_pdf
+ * @property string|null $cad_drawings
  * @property string $slug
  * @property bool $is_active
  * @property \Illuminate\Support\Carbon $created_at
@@ -75,6 +78,9 @@ class Product extends Model
         'description',
         'image',
         'gallery',
+        'specs_pdf',
+        'datasheet_pdf',
+        'cad_drawings',
         'slug',
         'is_active',
         'view_count',
@@ -248,5 +254,62 @@ class Product extends Model
     {
         $service = app(\App\Services\ImageService::class);
         return array_map(fn ($path) => $service->getResponsiveUrls($path), $this->gallery ?? []);
+    }
+
+    /**
+     * Get full URL for the product spec sheet PDF.
+     */
+    public function getSpecsPdfUrlAttribute(): ?string
+    {
+        if (!$this->specs_pdf) {
+            return null;
+        }
+        
+        $url = \Illuminate\Support\Facades\Storage::disk('public')->url($this->specs_pdf);
+        
+        // Ensure absolute URL
+        if (!filter_var($url, FILTER_VALIDATE_URL)) {
+            $url = config('app.url') . $url;
+        }
+        
+        return $url;
+    }
+
+    /**
+     * Get full URL for the full technical datasheet PDF.
+     */
+    public function getDatasheetPdfUrlAttribute(): ?string
+    {
+        if (!$this->datasheet_pdf) {
+            return null;
+        }
+        
+        $url = \Illuminate\Support\Facades\Storage::disk('public')->url($this->datasheet_pdf);
+        
+        // Ensure absolute URL
+        if (!filter_var($url, FILTER_VALIDATE_URL)) {
+            $url = config('app.url') . $url;
+        }
+        
+        return $url;
+    }
+
+    /**
+     * Get full URL for the CAD drawings file.
+     */
+    public function getCadDrawingsUrlAttribute(): ?string
+    {
+        if (!$this->cad_drawings) {
+            return null;
+        }
+        
+        $url = \Illuminate\Support\Facades\Storage::disk('public')->url($this->cad_drawings);
+        
+        // Ensure absolute URL
+        if (!filter_var($url, FILTER_VALIDATE_URL)) {
+            $url = config('app.url') . $url;
+        }
+        
+        return $url;
     }
 }

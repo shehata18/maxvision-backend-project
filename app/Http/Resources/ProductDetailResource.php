@@ -74,6 +74,9 @@ class ProductDetailResource extends JsonResource
                 return $this->applications->pluck('name')->toArray();
             }),
             'relatedProducts' => $relatedProducts,
+            'specsPdfUrl' => $this->specs_pdf_url,
+            'datasheetPdfUrl' => $this->datasheet_pdf_url,
+            'cadDrawingsUrl' => $this->cad_drawings_url,
         ];
     }
 }

@@ -169,6 +169,50 @@ class ProductResource extends Resource
                             ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp']),
                     ])->columns(2),
 
+
+                Forms\Components\Section::make('Downloads & Documents')
+                    ->description('Upload downloadable files for this product.')
+                    ->schema([
+                        Forms\Components\FileUpload::make('specs_pdf')
+                            ->label('Specs Sheet (PDF)')
+                            ->helperText('Shown on the "Download Specs" button in the product hero.')
+                            ->nullable()
+                            ->disk('public')
+                            ->directory('products/documents')
+                            ->acceptedFileTypes(['application/pdf'])
+                            ->maxSize(20480)
+                            ->downloadable()
+                            ->openable()
+                            ->columnSpan(1),
+                        Forms\Components\FileUpload::make('datasheet_pdf')
+                            ->label('Full Datasheet (PDF)')
+                            ->helperText('Shown on "Download Full Datasheet (PDF)" in the Technical Specs tab.')
+                            ->nullable()
+                            ->disk('public')
+                            ->directory('products/documents')
+                            ->acceptedFileTypes(['application/pdf'])
+                            ->maxSize(20480)
+                            ->downloadable()
+                            ->openable()
+                            ->columnSpan(1),
+                        Forms\Components\FileUpload::make('cad_drawings')
+                            ->label('CAD Drawings')
+                            ->helperText('Shown on the "CAD Drawings" button. Accepts PDF, DWG, DXF or ZIP archives.')
+                            ->nullable()
+                            ->disk('public')
+                            ->directory('products/documents')
+                            ->acceptedFileTypes([
+                                'application/pdf',
+                                'application/octet-stream',
+                                'application/zip',
+                                'application/x-zip-compressed',
+                            ])
+                            ->maxSize(51200)
+                            ->downloadable()
+                            ->columnSpan(1),
+                    ])
+                    ->columns(3)
+                    ->collapsible(),
                 Forms\Components\Section::make('Features')
                     ->schema([
                         Forms\Components\Repeater::make('features')
