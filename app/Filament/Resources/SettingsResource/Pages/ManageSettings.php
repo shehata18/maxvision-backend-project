@@ -11,6 +11,7 @@ use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\Page;
+use Illuminate\Support\Facades\Cache;
 
 class ManageSettings extends Page implements HasForms
 {
@@ -211,6 +212,10 @@ class ManageSettings extends Page implements HasForms
 
         // Handle hero_stats as JSON
         Setting::set('hero_stats', json_encode($data['hero_stats'] ?? []), 'json');
+
+        // Clear the frontend API cache so changes appear immediately
+        Cache::forget('company.settings');
+        Cache::forget('company.about');
 
         Notification::make()
             ->title('Site settings updated successfully')
