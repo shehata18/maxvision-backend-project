@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\SolutionResource\Pages;
 
 use App\Filament\Resources\SolutionResource;
+use App\Filament\Widgets\SolutionStatsWidget;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
@@ -14,6 +15,13 @@ class ListSolutions extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
+        ];
+    }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            SolutionStatsWidget::class,
         ];
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\CaseStudyResource\Pages;
 
 use App\Filament\Resources\CaseStudyResource;
+use App\Filament\Widgets\CaseStudyStatsWidget;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
@@ -14,6 +15,13 @@ class ListCaseStudies extends ListRecords
     {
         return [
             Actions\CreateAction::make(),
+        ];
+    }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            CaseStudyStatsWidget::class,
         ];
     }
 }

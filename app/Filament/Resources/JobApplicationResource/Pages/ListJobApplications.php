@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\JobApplicationResource\Pages;
 
 use App\Filament\Resources\JobApplicationResource;
+use App\Filament\Widgets\JobApplicationStatsWidget;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
@@ -34,6 +35,13 @@ class ListJobApplications extends ListRecords
                     }, 'job-applications-' . date('Y-m-d') . '.csv');
                     return $csv;
                 }),
+        ];
+    }
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            JobApplicationStatsWidget::class,
         ];
     }
 }
