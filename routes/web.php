@@ -13,8 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Redirect root to Filament admin panel
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/admin');
 });
 
 // Admin routes for job applications

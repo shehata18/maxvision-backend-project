@@ -114,7 +114,7 @@ return [
     */
 
     'markdown' => [
-        'theme' => 'default',
+        'theme' => env('MAIL_THEME', 'maxvision'),
 
         'paths' => [
             resource_path('views/vendor/mail'),

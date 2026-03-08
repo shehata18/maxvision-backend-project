@@ -30,9 +30,11 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->passwordReset()
             ->brandName('MaxVision CMS')
+            ->brandLogo(asset('logo.png'))
+            ->brandLogoHeight('50px')
             ->favicon(asset('images/favicon.png'))
             ->colors([
-                'primary' => Color::hex('#2B9FED'), // Electric Blue (203 89% 53%)
+                'primary' => Color::hex('#2B9FED'), // Electric Blue
             ])
             ->darkMode(true)
             ->font('Inter')

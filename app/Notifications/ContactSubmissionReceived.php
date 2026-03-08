@@ -32,16 +32,31 @@ class ContactSubmissionReceived extends Notification implements ShouldQueue
         $url = url('/admin/contact-submissions/' . $this->submission->id);
 
         return (new MailMessage)
-            ->subject('New Contact Submission from ' . $this->submission->full_name)
-            ->greeting('New inquiry received!')
-            ->line('**Name:** ' . $this->submission->full_name)
-            ->line('**Email:** ' . $this->submission->email)
-            ->line('**Company:** ' . ($this->submission->company ?? 'N/A'))
-            ->line('**Project Type:** ' . $this->submission->project_type)
-            ->line('**Timeline:** ' . $this->submission->timeline)
-            ->line('**Budget Range:** ' . $this->submission->budget_range)
-            ->action('View Submission', $url)
-            ->salutation('MaxVision CMS');
+            ->subject('🔔 New Contact Submission from ' . $this->submission->full_name)
+            ->greeting('New Inquiry Received!')
+            ->line('A new quote request has been submitted through the MaxVision website.')
+            ->line('')
+            ->line('### 👤 Contact Information')
+            ->line("**Name:** {$this->submission->full_name}")
+            ->line("**Email:** {$this->submission->email}")
+            ->line("**Phone:** " . ($this->submission->phone ?? 'Not provided'))
+            ->line("**Company:** " . ($this->submission->company ?? 'Not provided'))
+            ->line('')
+            ->line('### 📊 Project Details')
+            ->line("**Project Type:** {$this->submission->project_type}")
+            ->line("**Timeline:** {$this->submission->timeline}")
+            ->line("**Size Requirements:** {$this->submission->size_requirements}")
+            ->line("**Budget Range:** {$this->submission->budget_range}")
+            ->when($this->submission->message, function ($mail) {
+                return $mail->line('')
+                    ->line('### 💬 Additional Message')
+                    ->line($this->submission->message);
+            })
+            ->line('')
+            ->action('View Full Submission', $url)
+            ->line('')
+            ->line('⚡ **Action Required:** Please respond within 24 hours to maintain our service level agreement.')
+            ->salutation("MaxVision CMS\n\n*Automated Notification*");
     }
 
     /**
