@@ -42,7 +42,7 @@ class ImageService
             // Store optimized original
             $originalPath = "{$directory}/original/{$filename}";
             $encoded = $image->toWebp($this->quality);
-            Storage::disk('public')->put($originalPath, (string) $encoded);
+            Storage::disk('public')->put($originalPath, (string)$encoded);
 
             // Generate thumbnails
             $thumbnails = [];
@@ -52,7 +52,7 @@ class ImageService
 
                 $thumbPath = "{$directory}/thumbnails/{$size}/{$filename}";
                 $encodedThumb = $thumb->toWebp($this->quality);
-                Storage::disk('public')->put($thumbPath, (string) $encodedThumb);
+                Storage::disk('public')->put($thumbPath, (string)$encodedThumb);
 
                 $thumbnails[$size] = $thumbPath;
             }
@@ -61,7 +61,8 @@ class ImageService
                 'original' => $originalPath,
                 'thumbnails' => $thumbnails,
             ];
-        } catch (\Exception $e) {
+        }
+        catch (\Exception $e) {
             Log::error('Image upload failed', [
                 'directory' => $directory,
                 'error' => $e->getMessage(),
@@ -117,7 +118,8 @@ class ImageService
             }
 
             return true;
-        } catch (\Exception $e) {
+        }
+        catch (\Exception $e) {
             Log::warning('Image deletion failed', [
                 'path' => $path,
                 'error' => $e->getMessage(),
@@ -159,17 +161,20 @@ class ImageService
         // If a thumbnail size is requested, try to resolve the thumbnail path
         if ($size !== null) {
             $thumbPath = $this->resolveThumbnailPath($path, $size);
-            if ($thumbPath && Storage::disk('public')->exists($thumbPath)) {
+            if ($thumbPath) {
+                // Check locally first, but always trust the path if it looks valid
+                if (Storage::disk('public')->exists($thumbPath)) {
+                    return url('storage/' . $thumbPath);
+                }
+                // On production, the file may exist even if disk check fails
+                // (e.g. symlink differences). Return URL anyway.
                 return url('storage/' . $thumbPath);
             }
         }
 
-        // Fallback: return the path as-is (supports both legacy and new paths)
-        if (Storage::disk('public')->exists($path)) {
-            return url('storage/' . $path);
-        }
-
-        return null;
+        // Always return a URL for any non-empty path — the file exists on the server
+        // Storage::exists() can return false on production due to symlink/disk config differences
+        return url('storage/' . $path);
     }
 
     /**
@@ -187,7 +192,7 @@ class ImageService
         $urls = ['original' => $this->getUrl($path)];
 
         foreach ($this->defaultSizes as $size) {
-            $urls[(string) $size] = $this->getUrl($path, $size);
+            $urls[(string)$size] = $this->getUrl($path, $size);
         }
 
         return $urls;

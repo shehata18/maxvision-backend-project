@@ -24,16 +24,17 @@ class CompanyController extends Controller
         try {
             $data = Cache::remember('company.about', 3600, function () {
                 return [
-                    'milestones' => CompanyInfo::getMilestones(),
-                    'team' => CompanyInfo::getTeam(),
-                    'certifications' => CompanyInfo::getCertifications(),
-                    'partners' => CompanyInfo::getPartners(),
-                    'stats' => CompanyInfo::getStats(),
+                'milestones' => CompanyInfo::getMilestones(),
+                'team' => CompanyInfo::getTeam(),
+                'certifications' => CompanyInfo::getCertifications(),
+                'partners' => CompanyInfo::getPartners(),
+                'stats' => CompanyInfo::getStats(),
                 ];
             });
 
             return response()->json(['data' => $data]);
-        } catch (\Exception $e) {
+        }
+        catch (\Exception $e) {
             Log::error('Failed to fetch company information', [
                 'error' => $e->getMessage(),
             ]);
@@ -57,23 +58,24 @@ class CompanyController extends Controller
         try {
             $data = Cache::remember('company.settings', 3600, function () {
                 $settings = Setting::getAll();
-                
+
                 // Add full URL for file uploads
                 if (!empty($settings['site_logo'])) {
                     $fullPath = 'storage/' . $settings['site_logo'];
                     $settings['site_logo'] = url($fullPath);
                 }
-                
+
                 if (!empty($settings['site_favicon'])) {
                     $fullPath = 'storage/' . $settings['site_favicon'];
                     $settings['site_favicon'] = url($fullPath);
                 }
-                
+
                 return $settings;
             });
 
             return response()->json(['data' => $data]);
-        } catch (\Exception $e) {
+        }
+        catch (\Exception $e) {
             Log::error('Failed to fetch site settings', [
                 'error' => $e->getMessage(),
             ]);

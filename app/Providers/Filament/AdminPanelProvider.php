@@ -40,6 +40,7 @@ class AdminPanelProvider extends PanelProvider
             ->font('Inter')
             ->maxContentWidth(MaxWidth::Full)
             ->sidebarCollapsibleOnDesktop(true)
+            ->unsavedChangesAlerts(false)
             ->navigationGroups([
                 'Products',
                 'Solutions',

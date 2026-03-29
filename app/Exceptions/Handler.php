@@ -44,5 +44,17 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+
+        // Log all exceptions for debugging
+        $this->renderable(function (Throwable $e, $request) {
+            if ($request->is('admin/*') || $request->is('livewire/*')) {
+                \Illuminate\Support\Facades\Log::error('Admin/Livewire Error: ' . $e->getMessage(), [
+                    'exception' => get_class($e),
+                    'file' => $e->getFile(),
+                    'line' => $e->getLine(),
+                    'url' => $request->fullUrl(),
+                ]);
+            }
+        });
     }
 }

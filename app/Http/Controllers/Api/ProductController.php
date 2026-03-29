@@ -42,16 +42,14 @@ class ProductController extends Controller
         $cacheKey = "products.list.{$category}.{$pixelPitchMin}.{$pixelPitchMax}.{$brightnessMin}.{$search}.{$perPage}.page.{$page}";
 
         try {
-            $products = Cache::remember($cacheKey, 3600, function () use (
-                $category, $pixelPitchMin, $pixelPitchMax, $brightnessMin, $search, $perPage
-            ) {
+            $products = Cache::remember($cacheKey, 3600, function () use ($category, $pixelPitchMin, $pixelPitchMax, $brightnessMin, $search, $perPage) {
                 $query = Product::active()
                     ->with(['features:id,product_id,icon,title,description', 'applications:id,product_id,name,order'])
                     ->select([
-                        'id', 'name', 'series', 'category', 'slug', 'image',
-                        'environment', 'pixel_pitch', 'brightness_min', 'brightness_max',
-                        'cabinet_size', 'price', 'is_active',
-                    ]);
+                    'id', 'name', 'series', 'category', 'slug', 'image',
+                    'environment', 'pixel_pitch', 'brightness_min', 'brightness_max',
+                    'cabinet_size', 'price', 'is_active',
+                ]);
 
                 if ($category) {
                     $query->byCategory($category);
@@ -59,9 +57,11 @@ class ProductController extends Controller
 
                 if ($pixelPitchMin !== null && $pixelPitchMax !== null) {
                     $query->whereBetween('pixel_pitch', [$pixelPitchMin, $pixelPitchMax]);
-                } elseif ($pixelPitchMin !== null) {
+                }
+                elseif ($pixelPitchMin !== null) {
                     $query->where('pixel_pitch', '>=', $pixelPitchMin);
-                } elseif ($pixelPitchMax !== null) {
+                }
+                elseif ($pixelPitchMax !== null) {
                     $query->where('pixel_pitch', '<=', $pixelPitchMax);
                 }
 
@@ -71,17 +71,19 @@ class ProductController extends Controller
 
                 if ($search) {
                     $query->where(function ($q) use ($search) {
-                        $q->where('name', 'LIKE', "%{$search}%")
-                          ->orWhere('series', 'LIKE', "%{$search}%")
-                          ->orWhere('description', 'LIKE', "%{$search}%");
-                    });
-                }
+                                $q->where('name', 'LIKE', "%{$search}%")
+                                    ->orWhere('series', 'LIKE', "%{$search}%")
+                                    ->orWhere('description', 'LIKE', "%{$search}%");
+                            }
+                            );
+                        }
 
-                return $query->orderBy('category')->orderBy('pixel_pitch')->paginate($perPage);
-            });
+                        return $query->orderBy('category')->orderBy('pixel_pitch')->paginate($perPage);
+                    });
 
             return ProductResource::collection($products);
-        } catch (\Exception $e) {
+        }
+        catch (\Exception $e) {
             Log::error('Failed to fetch products', [
                 'error' => $e->getMessage(),
                 'filters' => $validated,
@@ -106,9 +108,9 @@ class ProductController extends Controller
         try {
             $product = Cache::remember("product.{$slug}", 7200, function () use ($slug) {
                 return Product::active()
-                    ->with(['features', 'applications', 'specifications'])
-                    ->where('slug', $slug)
-                    ->first();
+                ->with(['features', 'applications', 'specifications'])
+                ->where('slug', $slug)
+                ->first();
             });
 
             if (!$product) {
@@ -121,7 +123,8 @@ class ProductController extends Controller
             try {
                 $product->incrementViewCount();
                 Cache::forget("product.{$slug}");
-            } catch (\Exception $e) {
+            }
+            catch (\Exception $e) {
                 Log::warning('Failed to track product view', [
                     'slug' => $slug,
                     'error' => $e->getMessage(),
@@ -129,7 +132,8 @@ class ProductController extends Controller
             }
 
             return new ProductDetailResource($product);
-        } catch (\Exception $e) {
+        }
+        catch (\Exception $e) {
             Log::error('Failed to fetch product detail', [
                 'slug' => $slug,
                 'error' => $e->getMessage(),
@@ -153,16 +157,18 @@ class ProductController extends Controller
         try {
             $categories = Cache::remember('products.categories', 1800, function () {
                 return collect(ProductCategory::cases())->map(function (ProductCategory $category) {
-                    return [
+                        return [
                         'id' => $category->value,
                         'label' => $category->getLabel(),
                         'count' => Product::active()->byCategory($category->value)->count(),
-                    ];
-                })->toArray();
-            });
+                        ];
+                    }
+                    )->toArray();
+                });
 
             return response()->json(['data' => $categories]);
-        } catch (\Exception $e) {
+        }
+        catch (\Exception $e) {
             Log::error('Failed to fetch product categories', [
                 'error' => $e->getMessage(),
             ]);

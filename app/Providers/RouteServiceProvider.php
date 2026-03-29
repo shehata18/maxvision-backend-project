@@ -46,10 +46,10 @@ class RouteServiceProvider extends ServiceProvider
         });
 
         RateLimiter::for('contact', function (Request $request) {
-            return Limit::perHour(5)->by($request->ip())
+            return Limit::perHour(10)->by($request->ip())
                 ->response(function () {
                     return response()->json([
-                        'message' => 'Too many quote requests. Please try again later.',
+                        'message' => 'Too many requests. Please try again in a few minutes.',
                     ], 429);
                 });
         });

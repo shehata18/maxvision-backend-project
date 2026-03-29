@@ -4,10 +4,12 @@ namespace App\Filament\Pages;
 
 use App\Filament\Widgets\ContactSubmissionStatsWidget;
 use App\Filament\Widgets\ContactSubmissionsChartWidget;
+use App\Filament\Widgets\ConsultationBookingStatsWidget;
 use App\Filament\Widgets\PopularProductsWidget;
 use App\Filament\Widgets\ProductsByCategoryWidget;
 use App\Filament\Widgets\RecentContactSubmissionsWidget;
 use App\Filament\Widgets\StatsOverviewWidget;
+use App\Filament\Widgets\UpcomingConsultationsWidget;
 use Filament\Pages\Dashboard as BaseDashboard;
 
 class Dashboard extends BaseDashboard
@@ -19,10 +21,12 @@ class Dashboard extends BaseDashboard
         return [
             StatsOverviewWidget::class,
             ContactSubmissionStatsWidget::class,
+            ConsultationBookingStatsWidget::class,
             PopularProductsWidget::class,
             ProductsByCategoryWidget::class,
             ContactSubmissionsChartWidget::class,
             RecentContactSubmissionsWidget::class,
+            UpcomingConsultationsWidget::class,
         ];
     }
 

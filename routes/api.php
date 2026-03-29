@@ -45,6 +45,10 @@ Route::get('/company/settings', [CompanyController::class, 'settings']);
 // ─── Contact / Quote Request ─────────────────────────────────────
 Route::post('/contact', [ContactController::class, 'store'])->middleware('throttle:contact');
 
+// ─── Consultation Bookings ────────────────────────────────────────
+Route::post('/consultation-bookings', [\App\Http\Controllers\Api\ConsultationBookingController::class, 'store'])->middleware('throttle:contact');
+Route::get('/consultation-bookings/time-slots', [\App\Http\Controllers\Api\ConsultationBookingController::class, 'availableSlots']);
+
 // ─── Careers / Job Listings ───────────────────────────────────────
 Route::get('/jobs/filters', [JobListingController::class, 'filters']);
 Route::get('/jobs', [JobListingController::class, 'index']);

@@ -41,8 +41,16 @@ class SolutionObserver
     private function clearSolutionCaches(Solution $solution): void
     {
         Cache::forget("solution.{$solution->slug}");
-        Cache::forget('solutions.list.');    // no category filter
-        Cache::forget("solutions.list.{$solution->category}");
+        
+        // Clear all solution list cache variations
+        $categories = [null, 'retail', 'outdoor', 'corporate', 'events', 'architecture', 'transportation', 'education', 'hospitality'];
+        
+        foreach ($categories as $category) {
+            Cache::forget("solutions.list.{$category}");
+        }
+        
+        // Also clear the base key
+        Cache::forget('solutions.list.');
 
         Log::info('Solution caches cleared', ['solution' => $solution->slug]);
     }

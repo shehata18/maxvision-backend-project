@@ -113,6 +113,31 @@ class Product extends Model
                 $product->slug = Str::slug($product->name);
             }
         });
+
+        static::deleting(function (Product $product) {
+            // Delete associated files
+            if ($product->image) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($product->image);
+            }
+            
+            if ($product->gallery && is_array($product->gallery)) {
+                foreach ($product->gallery as $galleryImage) {
+                    \Illuminate\Support\Facades\Storage::disk('public')->delete($galleryImage);
+                }
+            }
+
+            if ($product->specs_pdf) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($product->specs_pdf);
+            }
+
+            if ($product->datasheet_pdf) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($product->datasheet_pdf);
+            }
+
+            if ($product->cad_drawings) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($product->cad_drawings);
+            }
+        });
     }
 
     /**

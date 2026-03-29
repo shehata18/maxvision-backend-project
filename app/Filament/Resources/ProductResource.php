@@ -342,11 +342,19 @@ class ProductResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\DeleteAction::make()
+                    ->requiresConfirmation()
+                    ->modalHeading('Delete product')
+                    ->modalDescription('Are you sure you would like to do this?')
+                    ->modalSubmitActionLabel('Yes, delete it'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make()
+                        ->requiresConfirmation()
+                        ->modalHeading('Delete selected products')
+                        ->modalDescription('Are you sure you would like to do this?')
+                        ->modalSubmitActionLabel('Yes, delete them'),
                 ]),
             ]);
     }

@@ -41,10 +41,21 @@ class CaseStudyObserver
     private function clearCaseStudyCaches(CaseStudy $caseStudy): void
     {
         Cache::forget("case_study.{$caseStudy->slug}");
-        Cache::forget('case_studies.list...');    // no filters
-        Cache::forget("case_studies.list.{$caseStudy->industry}.");
-        Cache::forget("case_studies.list..1");    // featured
-        Cache::forget("case_studies.list.{$caseStudy->industry}.1");
+        
+        // Clear all case study list cache variations
+        $industries = [null, 'retail', 'outdoor_advertising', 'corporate', 'events', 'architecture', 'transportation', 'education', 'hospitality'];
+        $featuredOptions = [null, '1', '0'];
+        
+        foreach ($industries as $industry) {
+            foreach ($featuredOptions as $featured) {
+                Cache::forget("case_studies.list.{$industry}.{$featured}");
+            }
+        }
+        
+        // Also clear base keys
+        Cache::forget('case_studies.list...');
+        Cache::forget('case_studies.list..1');
+        Cache::forget('case_studies.list..0');
 
         Log::info('Case study caches cleared', ['case_study' => $caseStudy->slug]);
     }

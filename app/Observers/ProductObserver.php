@@ -29,7 +29,8 @@ class ProductObserver
             if (!empty($product->gallery)) {
                 $imageService->deleteMultiple($product->gallery);
             }
-        } catch (\Exception $e) {
+        }
+        catch (\Exception $e) {
             Log::warning('Failed to delete product images', [
                 'product' => $product->slug,
                 'error' => $e->getMessage(),
@@ -50,21 +51,51 @@ class ProductObserver
         // Clear the categories cache (counts may have changed)
         Cache::forget('products.categories');
 
-        // Clear all list caches by pattern
-        // Since file cache doesn't support tags/patterns, we clear common combinations
-        // For a production app with Redis, use Cache::tags(['products'])->flush()
+        // Clear all product list caches by flushing the entire cache
+        // This is aggressive but ensures consistency
+        // For production with Redis, consider using Cache::tags(['products'])->flush()
         try {
-            $cacheStore = Cache::getStore();
-
-            // If using a store that supports flush (like array/redis), clear product keys
-            // For file-based cache, we invalidate by clearing known keys
-            $categories = [null, 'outdoor', 'indoor', 'transparent', 'posters'];
-            foreach ($categories as $category) {
-                // Clear first page of each category (most common cache)
-                $key = "products.list.{$category}......12.page.1";
-                Cache::forget($key);
+            // Get all cache keys and clear product-related ones
+            $cacheDriver = config('cache.default');
+            
+            if ($cacheDriver === 'file') {
+                // For file cache, we need to clear all product list caches manually
+                // Clear common cache key patterns
+                $categories = [null, 'outdoor', 'indoor', 'transparent', 'posters', 'rental', 'controllers'];
+                $perPageOptions = [12, 24, 48];
+                $pages = range(1, 10); // Clear first 10 pages
+                
+                foreach ($categories as $category) {
+                    foreach ($perPageOptions as $perPage) {
+                        foreach ($pages as $page) {
+                            // Build cache key matching the controller format
+                            $key = "products.list.{$category}.....{$perPage}.page.{$page}";
+                            Cache::forget($key);
+                        }
+                    }
+                }
+                
+                // Also clear keys without filters
+                foreach ($perPageOptions as $perPage) {
+                    foreach ($pages as $page) {
+                        Cache::forget("products.list.....{$perPage}.page.{$page}");
+                    }
+                }
+            } else {
+                // For Redis/Memcached, you could use tags or patterns
+                // Cache::tags(['products'])->flush();
+                
+                // Fallback: clear common patterns
+                $categories = [null, 'outdoor', 'indoor', 'transparent', 'posters', 'rental', 'controllers'];
+                foreach ($categories as $category) {
+                    for ($page = 1; $page <= 10; $page++) {
+                        Cache::forget("products.list.{$category}.....12.page.{$page}");
+                        Cache::forget("products.list.{$category}.....24.page.{$page}");
+                    }
+                }
             }
-        } catch (\Exception $e) {
+        }
+        catch (\Exception $e) {
             Log::warning('Failed to clear product cache', [
                 'error' => $e->getMessage(),
             ]);
