@@ -105,43 +105,43 @@ class ProductResource extends Resource
                 Forms\Components\Section::make('Technical Specifications')
                     ->schema([
                         Forms\Components\TextInput::make('pixel_pitch')
-                            ->required()
+                            ->nullable()
                             ->numeric()
                             ->step(0.1)
                             ->suffix('mm')
                             ->placeholder('3.0'),
                         Forms\Components\TextInput::make('brightness_min')
-                            ->required()
+                            ->nullable()
                             ->numeric()
                             ->suffix('nits')
                             ->placeholder('6000'),
                         Forms\Components\TextInput::make('brightness_max')
-                            ->required()
+                            ->nullable()
                             ->numeric()
                             ->suffix('nits')
                             ->placeholder('7500'),
                         Forms\Components\TextInput::make('cabinet_size')
-                            ->required()
+                            ->nullable()
                             ->maxLength(100)
                             ->placeholder('960×960×90mm'),
                         Forms\Components\TextInput::make('weight')
-                            ->required()
+                            ->nullable()
                             ->maxLength(50)
                             ->placeholder('28kg/cabinet'),
                         Forms\Components\TextInput::make('power_consumption')
-                            ->required()
+                            ->nullable()
                             ->maxLength(100)
                             ->placeholder('Max 650W/m², Avg 220W/m²'),
                         Forms\Components\TextInput::make('protection_rating')
-                            ->required()
+                            ->nullable()
                             ->maxLength(50)
                             ->placeholder('IP65 Front / IP54 Rear'),
                         Forms\Components\TextInput::make('lifespan')
-                            ->required()
+                            ->nullable()
                             ->maxLength(50)
                             ->placeholder('100,000 hours'),
                         Forms\Components\TextInput::make('operating_temp')
-                            ->required()
+                            ->nullable()
                             ->maxLength(50)
                             ->placeholder('-30°C to +55°C'),
                     ])->columns(2),
