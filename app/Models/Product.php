@@ -75,7 +75,6 @@ class Product extends Model
         'environment',
         'price',
         'tagline',
-        'advantage',
         'description',
         'image',
         'gallery',

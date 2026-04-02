@@ -90,12 +90,6 @@ class ProductResource extends Resource
                             ->maxLength(255)
                             ->placeholder('High-brightness outdoor LED...')
                             ->columnSpanFull(),
-                        Forms\Components\TextInput::make('advantage')
-                            ->nullable()
-                            ->maxLength(255)
-                            ->placeholder('Best Seller, New Arrival, etc.')
-                            ->helperText('Badge text shown on product card')
-                            ->columnSpanFull(),
                         Forms\Components\RichEditor::make('description')
                             ->nullable()
                             ->toolbarButtons([
