@@ -252,7 +252,18 @@ class Product extends Model
      */
     public function getImageUrlAttribute(): ?string
     {
-        return $this->image ? app(\App\Services\ImageService::class)->getUrl($this->image) : null;
+        if (!$this->image) {
+            return null;
+        }
+        
+        $url = app(\App\Services\ImageService::class)->getUrl($this->image);
+        
+        // Add cache-busting parameter using updated_at timestamp
+        if ($url && $this->updated_at) {
+            $url .= '?v=' . $this->updated_at->timestamp;
+        }
+        
+        return $url;
     }
 
     /**
@@ -260,7 +271,19 @@ class Product extends Model
      */
     public function getImageResponsiveAttribute(): array
     {
-        return $this->image ? app(\App\Services\ImageService::class)->getResponsiveUrls($this->image) : [];
+        if (!$this->image) {
+            return [];
+        }
+        
+        $urls = app(\App\Services\ImageService::class)->getResponsiveUrls($this->image);
+        
+        // Add cache-busting parameter to all URLs
+        if ($this->updated_at) {
+            $timestamp = $this->updated_at->timestamp;
+            $urls = array_map(fn($url) => $url ? $url . '?v=' . $timestamp : $url, $urls);
+        }
+        
+        return $urls;
     }
 
     /**
@@ -269,7 +292,15 @@ class Product extends Model
     public function getGalleryUrlsAttribute(): array
     {
         $service = app(\App\Services\ImageService::class);
-        return array_map(fn ($path) => $service->getUrl($path), $this->gallery ?? []);
+        $urls = array_map(fn ($path) => $service->getUrl($path), $this->gallery ?? []);
+        
+        // Add cache-busting parameter
+        if ($this->updated_at) {
+            $timestamp = $this->updated_at->timestamp;
+            $urls = array_map(fn($url) => $url ? $url . '?v=' . $timestamp : $url, $urls);
+        }
+        
+        return $urls;
     }
 
     /**
@@ -278,7 +309,17 @@ class Product extends Model
     public function getGalleryResponsiveAttribute(): array
     {
         $service = app(\App\Services\ImageService::class);
-        return array_map(fn ($path) => $service->getResponsiveUrls($path), $this->gallery ?? []);
+        $responsiveUrls = array_map(fn ($path) => $service->getResponsiveUrls($path), $this->gallery ?? []);
+        
+        // Add cache-busting parameter to all URLs
+        if ($this->updated_at) {
+            $timestamp = $this->updated_at->timestamp;
+            $responsiveUrls = array_map(function($urlSet) use ($timestamp) {
+                return array_map(fn($url) => $url ? $url . '?v=' . $timestamp : $url, $urlSet);
+            }, $responsiveUrls);
+        }
+        
+        return $responsiveUrls;
     }
 
     /**
