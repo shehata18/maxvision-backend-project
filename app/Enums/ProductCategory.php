@@ -14,10 +14,10 @@ enum ProductCategory: string implements HasLabel
     public function getLabel(): ?string
     {
         return match ($this) {
-            self::OUTDOOR => 'Outdoor LED',
-            self::INDOOR => 'Indoor LED',
+            self::OUTDOOR => 'Outdoor LCD',
+            self::INDOOR => 'Indoor LCD',
             self::TRANSPARENT => 'Transparent',
-            self::POSTERS => 'LED Posters',
+            self::POSTERS => 'LCD Posters',
         };
     }
 
